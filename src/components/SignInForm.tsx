@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { signUp } from '../actions/users/signUp';
+// import { signUp } from '../actions/users/signUp';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 

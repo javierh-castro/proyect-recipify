@@ -8,7 +8,7 @@
     "noUnusedParameters": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,//Cambie esto a falso
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

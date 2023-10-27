@@ -22,6 +22,12 @@ export const authOptions: AuthOptions = {
                     type: 'password'
                 }
             },
+            // async authorize(credentials) {
+            //     // ...
+            //     return {
+            //       // ...
+            //     } as any. // <-- This here
+            //   }
             authorize: async (credentials) => {
                 if(!credentials) {
                     return null;
@@ -47,7 +53,7 @@ export const authOptions: AuthOptions = {
                     return null;
                 }
 
-                return user;
+                return user as any;
             }
         })
     ],

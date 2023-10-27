@@ -3,7 +3,7 @@
 import prisma from '@/libs/prisma';
 import crypto from 'crypto';
 // import { sendEmail } from '../emails/sendEmail';
-import { ResetPasswordEmailTemplate } from '@/email-templates/reset-password-email';
+import { ResetPasswordEmailTemplate } from '@/app/email-templates/reset-password-email';
 
 export const resetPassword = async (email: string) => {
     console.log('Resetting password for ' + email);

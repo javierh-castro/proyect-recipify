@@ -17,7 +17,7 @@ async function NavBar() {
     return <nav className='navbar-container'>
          <Image src={logo} alt='Recipify - logo' className='navbar-logo'/>
         <SearchBar/>
-        <Link href='/dashboard'>Dashboard</Link>
+        <Link href='/protected/dashboard'>Dashboard</Link>
 
         {/*Ojo por que estoy para cambiar el login*/}
         {session && session.user?.email ? (
