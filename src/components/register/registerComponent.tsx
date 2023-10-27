@@ -3,53 +3,67 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signUp } from "@/app/actions/users/signUp";
 
 const RegisterComponent = () => {
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [repeatPassword, setRepeatPassword] = useState("");
+  // const router = useRouter();
+  // const handleRedirect = (path:string) => {
+  //   router.push(path);
+  // };
+  // const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  //   event.preventDefault();
+  //   const res = await fetch("http://localhost:3000/api/userback",{
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         name,
+  //         email,
+  //         password,
+  //         repeatPassword
+  //       }),
+  //     }
+  //   );
+  //   console.info("estado de resultado "+res.status)
+  //   const responseAPI = await res.json();
+
+  //   if (res.status != 201) {
+  //     setError(responseAPI.message);
+  //     handleRedirect("/api/register");
+  //   }else{
+  //     const result = await signIn("credentials", {
+  //     username: email,
+  //     password: password,
+  //     redirect: false
+  //   });
+  //    handleRedirect("/recetas");
+  // }
+
+  // };
+  
   const [name, setName] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [repeatPassword, setRepeatPassword] = useState("");
-  const router = useRouter();
-  const handleRedirect = (path:string) => {
-    router.push(path);
-  };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const res = await fetch("http://localhost:3000/api/userback",{
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          repeatPassword
-        }),
-      }
-    );
-    console.info("estado de resultado "+res.status)
-    const responseAPI = await res.json();
+ const [message, setMessage] = useState("");
 
-    if (res.status != 201) {
-      setError(responseAPI.message);
-      handleRedirect("/api/register");
-    }else{
-      const result = await signIn("credentials", {
-      username: email,
-      password: password,
-      redirect: false
-    });
-     handleRedirect("/recetas");
-  }
-  
+  const handleSubmit = async () => {
+    setMessage("Signing up...");
+    const message = await signUp(email, password);
+    setMessage(message);
   };
 
   return (
     <div>
       <h1>Regístrate y comienza a buscar</h1>
-      <form onSubmit={handleSubmit}>
+      <form>
         <input
           type="text"
           placeholder="nombre"
@@ -82,19 +96,18 @@ const RegisterComponent = () => {
           value={repeatPassword}
           onChange={(event) => setRepeatPassword(event.target.value)}
         />
-        <button
-          type="submit"
-          className="btn btn-primary"
-        >
+        <button onClick={handleSubmit} type="submit" className="btn btn-primary">
           Registrarse
         </button>
       </form>
 
+      {/* No se que pasa aca?
       {error && (
-    <div className='mb-2'>
-    <h1 >{error}</h1>
-   </div>
-  )}
+        <div className="mb-2">
+          <h1>{error}</h1>
+        </div>
+      )} */}
+      <p>{message}</p>
     </div>
   );
 };

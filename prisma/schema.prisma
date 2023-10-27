@@ -12,29 +12,47 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  email String @unique
-  name String
+
+  email    String @unique
   password String
-  role String @default("USER")
+  name     String?
+
+  //Esto esta en el recipify
+  role  String   @default("USER")
   posts Recipe[]
+
+  resetPasswordToken       String?   @unique
+  resetPasswordTokenExpiry DateTime?
+
+  emailVerified          Boolean @default(false)
+  emailVerificationToken String? @unique
 }
 
+// model User {
+//   id Int @id @default(autoincrement())
+//   email String @unique
+//   name String
+//   password String
+//   role String @default("USER")
+//   posts Recipe[]
+// }
+
 model Recipe {
-  id Int @id @default(autoincrement())
-  title String
-  photo String
+  id          Int       @id @default(autoincrement())
+  title       String
+  photo       String
   description String
   ingredients String //SQLITE NO PERMITE LISTAS, ASI QUE VAMOS A TENER QUE USAR UN STRING SEPARADO POR COMAS HASTA PASARLO A MONGO XD
-  author User @relation(fields: [authorID],references: [id])
-  authorID Int
-  createdAt DateTime @default(now())
-  updatedAt  DateTime   @updatedAt
-  categoria Categoria @relation(fields: [categoriaID],references: [id])
+  author      User      @relation(fields: [authorID], references: [id])
+  authorID    Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  categoria   Categoria @relation(fields: [categoriaID], references: [id])
   categoriaID Int
 }
 
 model Categoria {
-  id Int @id @default(autoincrement())
-  name String
+  id      Int      @id @default(autoincrement())
+  name    String
   recipes Recipe[]
 }
