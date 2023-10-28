@@ -46,17 +46,17 @@ const RegisterComponent = () => {
   // }
 
   // };
-  
+
   const [name, setName] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async () => {
     setMessage("Signing up...");
-    const message = await signUp(email, password);
+    const message = await signUp(name, email, password, repeatPassword);
     setMessage(message);
   };
 
@@ -96,18 +96,21 @@ const RegisterComponent = () => {
           value={repeatPassword}
           onChange={(event) => setRepeatPassword(event.target.value)}
         />
-        <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+        <button
+          onClick={handleSubmit}
+          type="submit"
+          className="btn btn-primary"
+        >
           Registrarse
         </button>
+        <p>{message}</p>
       </form>
-
       {/* No se que pasa aca?
       {error && (
         <div className="mb-2">
           <h1>{error}</h1>
         </div>
       )} */}
-      <p>{message}</p>
     </div>
   );
 };

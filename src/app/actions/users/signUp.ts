@@ -6,21 +6,31 @@ import crypto from 'crypto';
 import { sendEmail } from '@/emails/sendEmail';
 import { VerifyEmailEmailTemplate } from '@/app/email-templates/verify-email-email';
 
-export const signUp = async (email: string, password: string) => {
+export const signUp = async ( name: string, email: string, password: string, repeatPassword: string) => {
     const user = await prisma.user.findUnique({
         where: {
             email,
         },
     });
-
     if (user) {
         return 'User with that email already exists.';
     }
+
+    // Validar que las contraseñas sean iguales
+    if (password !== repeatPassword) {
+        console.log('Las contraseñas no coinciden')
+        return 'Las contraseñas no coinciden' 
+        // NextResponse.json(
+        //   { message: messages.error.passwordsNotMatch },
+        //   { status: 400 }
+        // );
+      }
 
     const passwordHash = bcrypt.hashSync(password, 10);
 
     const createdUser = await prisma.user.create({
         data: {
+            name,
             email,
             password: passwordHash,
         },
