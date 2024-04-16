@@ -8,7 +8,7 @@
     "noUnusedParameters": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,//Cambie esto a falso
+    "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -26,6 +26,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/login/layout.jsx", "src/components/login-component/loginComponent.jsx", "src/components/createProduct/receta.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts","@testing-library/jest-dom@5.16.5","@testing-library/react","@testing-library/jest-dom@5.16.5", "src/components/email/welcome.jsx"],
   "exclude": ["node_modules"]
 }

@@ -1,13 +1,27 @@
+import { categoriasInterface } from "./categoriasInterface"
+import { IUserInfo } from "./userInterfaces"
+
 export interface iRecipeInfo {
     id: number,
-    photo:string,
     title: string,
+    photo:string,
+    pasos:string,
     description:string,
     ingredients: string,
-    author: string,
+    author: IUserInfo,
     authorID: number,
     createdAt: string,
     updatedAt:  string,
-    categoria: string,
+    categoria: categoriasInterface,
     categoriaID: number
+};
+
+export interface ingredient{
+    id:number|string,
+    name:string,
+    cuantity:string
+}
+
+export interface iSearchedRecipe{
+    searchedWords:string,
 }

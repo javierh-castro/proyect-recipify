@@ -36,10 +36,33 @@ class RecipeServices {
     return recipe;
   }
 
-  async addRecipe(title:string, description:string, ingredients:string, categoriaID:string, authorID:string, photo:string) {
+  async searchRecipe(recipeName: string){
+    if (!recipeName) {
+      throw new Error(
+        "Error 409. No se recibe el ID."
+      );
+    };
+
+    const searchResults=await prisma.recipe.findMany({
+      where:{
+        title:{
+          contains:recipeName as string,
+        }
+      },
+      include: {
+        author: { select: { name: true } },
+        categoria: { select: { name: true } },
+      },
+    });
+    if(searchResults) return searchResults
+    throw new Error("Error 409. No data provided ahreloco"); //cambiar el error xd
+
+  }
+
+  async addRecipe(title: string,photo:string,description:string,pasos:string,ingredients:string,categoriaID:string,idUsuario:string ) {
 
     const numberCategoria=Number(categoriaID)
-    const numberAuthor=Number(authorID)
+    const numberAuthor=Number(idUsuario)
     const recipeExists = await prisma.recipe.findFirst({
       include: {
         categoria: true
@@ -57,11 +80,12 @@ class RecipeServices {
       data: {
         title: title,
         photo: photo,
-        description: description as string,
+        description:description as string,
+        pasos: pasos,
         ingredients: ingredients,
         categoria: { connect: { id: numberCategoria } },
         author: { connect: { id: numberAuthor } }
-      },
+      }
     });
 
     return newRecipe;
@@ -91,6 +115,29 @@ class RecipeServices {
 
     return deletedRecipe;
   };
+
+  async getRecetasConAutor(){
+
+    const recipes = await prisma.recipe.findMany({
+      include: {
+        author:true,
+        categoria:true
+      }
+    });
+    return recipes;
+  };
+
+  async parsearData(){
+    const data = await this.getRecetasConAutor();
+    console.log(data);
+
+    return data;
+
+  }
+
+
+
+
 
 };
 

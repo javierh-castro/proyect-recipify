@@ -1,4 +1,4 @@
-// File: C:\Users\javi2\Desktop\trabajo final\Recipify-IES-2023\src\app\auth\signin\page.tsx
+// File: X:\Recipify-IES-2024\src\app\auth\signin\page.tsx
 import * as entry from '../../../../../src/app/auth/signin/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
